@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GreenSplit | Group Splitting</title>
+  <!-- Load CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Group creation and management UI for GreenSplit project -->
+  <main id="groupPage" class="page" style="display: block; max-width: 700px; margin: 2.5rem auto 1.5rem auto;">
+    <header style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+      <h1 style="margin: 0; letter-spacing:1px; color:#1976d2; font-size:2.1rem;">Group Splitting</h1>
+      <button onclick="showPage('choicePage')" aria-label="Back to Choice" style="padding:0.5rem 1.2rem; font-size:1rem;">Back</button>
+    </header>
+    <section class="grid" aria-label="Group Splitting">
+      <div class="card" aria-labelledby="createGroupHeading">
+        <h2 id="createGroupHeading" style="color:#388e3c; margin-top:0;">Create a New Group</h2>
+        <form id="createGroupForm" autocomplete="off">
+          <label for="groupName" style="font-weight: bold;">Group Name</label>
+          <input type="text" id="groupName" placeholder="e.g. Roommates, Project X" required autocomplete="off">
+          <label for="groupMembers" style="font-weight: bold;">Members <span style="font-weight: normal; color: #666;">(comma separated)</span></label>
+          <input type="text" id="groupMembers" placeholder="e.g. Alice, Bob, Charlie" required autocomplete="off">
+          <button type="submit" style="margin-top: 0.7rem; width: 100%; font-size:1.05rem;">Create Group</button>
+          <div id="formError" style="color:#d32f2f; margin-top:0.7rem; display:none; font-size:0.98em;" aria-live="assertive"></div>
+        </form>
+      </div>
+      <div class="card full" aria-labelledby="existingGroupsHeading">
+        <h2 id="existingGroupsHeading" style="color:#388e3c; margin-top:0;">Your Groups</h2>
+        <div id="groupList" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+</body>
+<!-- Load JS -->
+<script src="app.js"></script>
+</html>
