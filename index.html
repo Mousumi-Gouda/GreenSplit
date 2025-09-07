@@ -1,0 +1,95 @@
+<!-- =============================
+  Member 4 Contribution - GreenSplit Hackathon Project
+  File: index.html
+  Description: Main HTML structure for personal and group carbon tracking pages.
+  Author: Member 4
+  For evaluation: This file provides the UI layout and canvas elements for charts.
+  ============================= -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Chart.js CDN for chart rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div id="personalPage" class="page" style="display: block"><!-- Set to block for demo -->
+        <header>
+            <h1>🌱 GreenSplit</h1>
+            <button id="themeToggle" aria-label="Toggle Theme">🌙</button>
+            <button id="logoutBtn">Logout</button>
+        </header>
+        <div class="grid">
+            <div class="card full">
+                <h2>Monthly Carbon Tracker by Category</h2>
+                <canvas id="personalMonthlyChart"></canvas>
+            </div>
+        </div>
+        <div style="color: red">Temp Viz</div>
+        <!-- Temporary tweak for Member 4 -->
+    </div>
+
+    <div id="groupDetailsPage" class="page" style="display: none">
+        <div class="grid">
+            <div class="card full">
+                <h2>Per-Member Carbon Tracker</h2>
+                <canvas id="groupMemberChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div id="choicePage" class="page" style="display: none">
+        <!-- Choice page hidden for demo -->
+    </div>
+    <!-- App logic -->
+    <script>
+        // Demo data for personal chart
+        const personalExpenses = [
+            { date: '2025-08-01', category: 'food', co2: 12 },
+            { date: '2025-08-15', category: 'transport', co2: 20 },
+            { date: '2025-09-01', category: 'food', co2: 10 },
+            { date: '2025-09-10', category: 'energy', co2: 8 },
+            { date: '2025-09-15', category: 'transport', co2: 15 }
+        ];
+        const carbonFactors = {
+            food: 1,
+            transport: 1,
+            energy: 1
+        };
+        const categoryColors = {
+            food: '#4caf50',
+            transport: '#ff9800',
+            energy: '#2196f3'
+        };
+    </script>
+    <script src="app.js"></script>
+    <script>
+        // For demo: show personalPage by default, hide others
+        document.getElementById('personalPage').style.display = 'block';
+        var groupDetails = document.getElementById('groupDetailsPage');
+        if (groupDetails) groupDetails.style.display = 'none';
+        var choicePage = document.getElementById('choicePage');
+        if (choicePage) choicePage.style.display = 'none';
+        // Call chart update for demo
+        if (typeof updatePersonalMonthlyChart === 'function') {
+            updatePersonalMonthlyChart();
+        }
+        // To test group chart, define a group object and call updateGroupMemberChart(group)
+        // Example:
+        // const group = {
+        //   members: ['Alice', 'Bob'],
+        //   splits: [
+        //     { co2: { Alice: 10, Bob: 5 } },
+        //     { co2: { Alice: 7, Bob: 8 } }
+        //   ]
+        // };
+        // updateGroupMemberChart(group);
+    </script>
+</body>
+
+</html>
