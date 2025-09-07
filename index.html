@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="groupDetailsPage" class="page" style="display: block; max-width: 900px; margin: 40px auto; box-shadow: 0 2px 16px #0001; border-radius: 16px; background: #f8fafc; padding: 32px 24px;">
+      <header style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px;">
+        <h1 id="groupDetailsName" style="font-size: 2rem; font-weight: bold; color: #0ea5e9;">Group Expense & Bill Splitter</h1>
+        <button id="backToGroupPage" style="background: #f1f5f9; color: #0ea5e9; border-radius: 6px; border: none; padding: 8px 16px; font-size: 1rem;">Back to Group</button>
+      </header>
+      <div class="grid" style="display: flex; gap: 32px; flex-wrap: wrap;">
+        <div class="card" style="flex: 1 1 320px; background: #fff; border-radius: 12px; box-shadow: 0 1px 8px #0001; padding: 24px; margin-bottom: 16px;">
+          <h2 style="color: #0ea5e9; margin-bottom: 16px;">Add Group Expense</h2>
+          <form id="groupExpenseForm" style="display: flex; flex-direction: column; gap: 12px;">
+            <input type="number" id="groupAmount" placeholder="Amount (₹)" required min="0" step="0.01" style="padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;" />
+            <input type="text" id="groupDescription" placeholder="Description" required style="padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;" />
+            <select id="groupCategory" style="padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
+              <option value="food">Food</option>
+              <option value="travel">Travel</option>
+              <option value="shopping">Shopping</option>
+              <option value="utilities">Utilities</option>
+              <option value="entertainment">Entertainment</option>
+            </select>
+            <input type="date" id="groupDate" style="padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;" />
+            <button type="submit" style="margin-top: 8px;">Add</button>
+            <div id="expenseFeedback" style="color: #16a34a; font-size: 0.95rem; min-height: 1.2em;"></div>
+          </form>
+        </div>
+        <div class="card" style="flex: 1 1 320px; background: #fff; border-radius: 12px; box-shadow: 0 1px 8px #0001; padding: 24px; margin-bottom: 16px;">
+          <h2 style="color: #0ea5e9; margin-bottom: 16px;">Bill Splitter</h2>
+          <form id="groupSplitForm" style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; gap: 8px;">
+              <select id="splitMode" onchange="toggleSplitInputs()" style="flex: 1; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                <option value="all">All Expenses</option>
+                <option value="fresh">Fresh Split</option>
+              </select>
+              <select id="splitType" onchange="toggleSplitInputs()" style="flex: 1; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                <option value="equal">Equal Split</option>
+                <option value="custom-amount">Custom Amount</option>
+                <option value="custom-percent">Custom Percentage</option>
+              </select>
+            </div>
+            <div id="totalExpenseDisplay" style="margin: 10px 0; font-weight: bold;"></div>
+            <div id="memberInputs"></div>
+            <button type="submit" style="margin-top: 8px;">Split</button>
+          </form>
+          <p id="groupSplitResult" style="margin-top: 12px;"></p>
+        </div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+    <script>
+      // Show feedback after adding an expense
+      document.getElementById('groupExpenseForm').addEventListener('submit', function(e) {
+        setTimeout(function() {
+          document.getElementById('expenseFeedback').textContent = 'Expense added!';
+          setTimeout(function() {
+            document.getElementById('expenseFeedback').textContent = '';
+          }, 1200);
+        }, 10);
+      });
+      // Initialize split inputs on load
+      window.addEventListener('DOMContentLoaded', function() {
+        if (typeof toggleSplitInputs === 'function') toggleSplitInputs();
+      });
+    </script>
+  </body>
+</html>
