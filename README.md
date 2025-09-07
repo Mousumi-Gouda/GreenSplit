@@ -1,4 +1,3 @@
-
 # GreenSplit 
 
 Welcome to GreenSplit! 🌱
@@ -27,3 +26,7 @@ GreenSplit is the result of close collaboration, with each team member focusing 
 
 ## License
 MIT
+
+# GreenSplit
+A carbon-aware perdsonal and group expense tracker with reward points for sustainable behavior.
+
