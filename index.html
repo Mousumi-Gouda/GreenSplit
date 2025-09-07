@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌱 GreenSplit</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div id="loginPage" class="page">
+    <div class="auth-card">
+      <h1>Login</h1>
+      <form id="loginForm" autocomplete="off">
+        <input type="text" id="loginUsername" placeholder="Username" required autocomplete="off">
+        <input type="password" id="loginPassword" placeholder="Password" required autocomplete="off">
+        <button type="submit">Login</button>
+      </form>
+      <p>Don't have an account? <a href="#" onclick="showPage('signupPage')">Signup</a></p>
+    </div>
+  </div>
+
+  <div id="signupPage" class="page" style="display: none;">
+    <div class="auth-card">
+      <h1>Signup</h1>
+      <form id="signupForm" autocomplete="off">
+        <input type="text" id="signupUsername" placeholder="Username" required autocomplete="off">
+        <input type="password" id="signupPassword" placeholder="Password" required autocomplete="off">
+        <button type="submit">Signup</button>
+      </form>
+      <p>Already have an account? <a href="#" onclick="showPage('loginPage')">Login</a></p>
+    </div>
+  </div>
+
+  <div id="choicePage" class="page" style="display: none;">
+    <header>
+      <h1>🌱 GreenSplit</h1>
+      <button id="themeToggle" aria-label="Toggle Theme">🌙</button>
+      <button id="logoutBtn">Logout</button>
+    </header>
+    <div class="grid">
+      <div class="card">
+        <h2>Personal Use</h2>
+        <button onclick="showPersonalPage()">Go to Personal</button>
+      </div>
+      <div class="card">
+        <h2>Group Splitting</h2>
+        <button onclick="showGroupPage()">Go to Group</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="personalPage" class="page" style="display: none;">
+    <header>
+      <h1>Personal Use</h1>
+      <button onclick="showPage('choicePage')">Back to Choice</button>
+    </header>
+    <div class="grid">
+      <div class="card">
+        <h2>Add Expense</h2>
+        <form id="personalExpenseForm">
+          <input type="number" id="personalAmount" placeholder="Amount" required min="0" step="0.01">
+          <input type="text" id="personalDescription" placeholder="Description" required>
+          <select id="personalCategory">
+            <option value="food">Food</option>
+            <option value="travel">Travel</option>
+            <option value="shopping">Shopping</option>
+            <option value="utilities">Utilities</option>
+            <option value="entertainment">Entertainment</option>
+          </select>
+          <input type="date" id="personalDate">
+          <button type="submit">Add</button>
+        </form>
+      </div>
+      <div class="card">
+        <h2>Personal Rewards</h2>
+        <p id="personalRewardPoints">Reward Points: 0</p>
+        <p id="personalCarbonStats">Total CO₂: 0kg</p>
+      </div>
+      <div class="card">
+        <h2>Recent Expenses</h2>
+        <ul id="personalRecentList"></ul>
+      </div>
+      <div class="card">
+        <h2>Carbon Suggestions</h2>
+        <p>Recommended monthly carbon footprint: &lt;170 kg CO₂e per person to aim for a sustainable 2 tonnes per year.</p>
+        <p>Exceeding this contributes to global warming, biodiversity loss, and extreme weather events.</p>
+        <p>Earn reward points by staying below thresholds!</p>
+      </div>
+      <div class="card full">
+        <h2>Monthly Carbon Tracker by Category</h2>
+        <canvas id="personalMonthlyChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div id="groupPage" class="page" style="display: none;">
+    <header>
+      <h1>Group Splitting</h1>
+      <button onclick="showPage('choicePage')">Back to Choice</button>
+    </header>
+    <div class="grid">
+      <div class="card">
+        <h2>Create Group</h2>
+        <form id="createGroupForm">
+          <input type="text" id="groupName" placeholder="Group Name" required>
+          <input type="text" id="groupMembers" placeholder="Members (comma separated)" required>
+          <button type="submit">Create</button>
+        </form>
+      </div>
+      <div class="card full">
+        <h2>Groups</h2>
+        <div id="groupList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="groupDetailsPage" class="page" style="display: none;">
+    <header>
+      <h1 id="groupDetailsName"></h1>
+      <button id="backToGroupPage">Back to Group</button>
+    </header>
+    <div class="grid">
+      <div class="card">
+        <h2>Add Group Expense</h2>
+        <form id="groupExpenseForm">
+          <input type="number" id="groupAmount" placeholder="Amount" required min="0" step="0.01">
+          <input type="text" id="groupDescription" placeholder="Description" required>
+          <select id="groupCategory">
+            <option value="food">Food</option>
+            <option value="travel">Travel</option>
+            <option value="shopping">Shopping</option>
+            <option value="utilities">Utilities</option>
+            <option value="entertainment">Entertainment</option>
+          </select>
+          <input type="date" id="groupDate">
+          <button type="submit">Add</button>
+        </form>
+      </div>
+      <div class="card">
+        <h2>Bill Splitter</h2>
+        <form id="groupSplitForm">
+          <select id="splitMode" onchange="toggleSplitInputs()">
+            <option value="all">All Expenses</option>
+            <option value="fresh">Fresh Split</option>
+          </select>
+          <select id="splitType" onchange="toggleSplitInputs()">
+            <option value="equal">Equal Split</option>
+            <option value="custom-amount">Custom Amount</option>
+            <option value="custom-percent">Custom Percentage</option>
+          </select>
+          <div id="totalExpenseDisplay"></div>
+          <div id="memberInputs"></div>
+          <button type="submit">Split</button>
+        </form>
+        <p id="groupSplitResult"></p>
+      </div>
+      <div class="card">
+        <h2>Group Rewards</h2>
+        <p id="groupRewardPoints">Reward Points: 0</p>
+        <p id="groupCarbonStats">Total CO₂: 0kg</p>
+      </div>
+      <div class="card">
+        <h2>Recent Group Expenses</h2>
+        <ul id="groupRecentList"></ul>
+      </div>
+      <div class="card">
+        <h2>Carbon Suggestions</h2>
+        <p>Recommended monthly carbon footprint: &lt;170 kg CO₂e per person to aim for a sustainable 2 tonnes per year.</p>
+        <p>Exceeding this contributes to global warming, biodiversity loss, and extreme weather events.</p>
+        <p>Earn reward points by staying below thresholds!</p>
+      </div>
+      <div class="card full">
+        <h2>Per-Member Carbon Tracker</h2>
+        <canvas id="groupMemberChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
