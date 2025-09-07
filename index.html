@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  <link rel="stylesheet" href="style.css"/>
+  </head>
+  <body>
+    <div id="loginPage" class="page">
+      <div class="auth-card">
+        <h1>Login</h1>
+        <form id="loginForm" autocomplete="off">
+          <input
+            type="text"
+            id="loginUsername"
+            placeholder="Username"
+            required
+            autocomplete="off"
+          />
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Password"
+            required
+            autocomplete="off"
+          />
+          <button type="submit">Login</button>
+        </form>
+        <p>
+          Don't have an account?
+          <a href="#" onclick="showPage('signupPage')">Signup</a>
+        </p>
+      </div>
+    </div>
+
+    <div id="signupPage" class="page" style="display: none">
+      <div class="auth-card">
+        <h1>Signup</h1>
+        <form id="signupForm" autocomplete="off">
+          <input
+            type="text"
+            id="signupUsername"
+            placeholder="Username"
+            required
+            autocomplete="off"
+          />
+          <input
+            type="password"
+            id="signupPassword"
+            placeholder="Password"
+            required
+            autocomplete="off"
+          />
+          <button type="submit">Signup</button>
+        </form>
+        <p>
+          Already have an account?
+          <a href="#" onclick="showPage('loginPage')">Login</a>
+        </p>
+      </div>
+    </div>
+    <script src="app.js"></script>  
+  </body>
+</html>

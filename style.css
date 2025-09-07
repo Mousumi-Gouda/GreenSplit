@@ -1,0 +1,15 @@
+.auth-card {
+  background: #1e293b;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+body.light .auth-card {
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
